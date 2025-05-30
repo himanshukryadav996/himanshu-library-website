@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himanshu Library - A Safe and Quiet Study Environment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #086e7d;
+            --accent-color: #ffc93c;
+            --dark-color: #121212;
+            --light-color: #f9f9f9;
+            --mid-color: #e0e0e0;
+            --text-color: #333333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%; /* 10px = 1rem */
+        }
+
+        body {
+            font-family: var(--body-font);
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+        }
+
+        h1 { font-size: 4.8rem; }
+        h2 { font-size: 3.6rem; }
+        h3 { font-size: 2.8rem; }
+        h4 { font-size: 2.4rem; }
+        h5 { font-size: 2rem; }
+        h6 { font-size: 1.8rem; }
+
+        p {
+            margin-bottom: 2rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 8rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8rem;
+            height: 0.5rem;
+            background-color: var(--accent-color);
+            border-radius: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffdb70;
+            color: var(--dark-color);
+        }
+
+        .btn-outlined {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outlined:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(3rem);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header and Navigation */
+        header {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.sticky {
+            padding: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: var(--heading-font);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--dark-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 0;
+            height: 0.2rem;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        #menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 3rem;
+            height: 2.5rem;
+            cursor: pointer;
+        }
+
+        #menu-toggle span {
+            width: 100%;
+            height: 0.3rem;
+            background-color: var(--dark-color);
+            border-radius: 0.5rem;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/0d188c66-b04a-4f43-a020-9c9b3108dcbe_wm') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-top: 0;
+            padding-top: 8rem;
+        }
+
+        .hero-content {
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            background-color: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: 3rem;
+        }
+
+        .service-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-img {
+            height: 25rem;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 2.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-content p {
+            margin-bottom: 2rem;
+        }
+
+        /* Registration Section */
+        .registration {
+            background-color: white;
+            text-align: center;
+        }
+
+        .registration-content {
+            max-width: 70rem;
+            margin: 0 auto;
+        }
+
+        .registration h2 {
+            margin-bottom: 2.5rem;
+        }
+
+        .registration p {
+            margin-bottom: 3.5rem;
+        }
+
+        .password-modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .password-modal-container.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .password-modal-content {
+            background-color: white;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 40rem;
+            width: 90%;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .password-modal-container.show .password-modal-content {
+            transform: translateY(0);
+        }
+
+        .password-modal-content h3 {
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--mid-color);
+            border-radius: var(--border-radius);
+            font-size: 1.6rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 1.2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .cancel-btn {
+            background-color: var(--mid-color);
+            color: var(--dark-color);
+        }
+
+        .cancel-btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes shake {
+            0%, 100% {transform: translateX(0);}
+            10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+            20%, 40%, 60%, 80% {transform: translateX(10px);}
+        }
+
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1.5rem 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+            transform: translateX(110%);
+            transition: var(--transition);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .notification.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--light-color);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 5rem;
+            height: 5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            font-size: 2rem;
+        }
+
+        .contact-text h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-form h3 {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1.2rem;
+            border: 1px solid var(--mid-color);
+            border-radius: var(--border-radius);
+            font-family: var(--body-font);
+            font-size: 1.6rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(26, 95, 122, 0.2);
+        }
+
+        textarea.form-control {
+            height: 15rem;
+            resize: none;
+        }
+
+        /* Map Section */
+        .map {
+            height: 40rem;
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            gap: 5rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: var(--heading-font);
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+
+        .footer-about p {
+            margin-bottom: 2rem;
+        }
+
+        .footer h4 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .footer h4::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 5rem;
+            height: 0.3rem;
+            background-color: var(--accent-color);
+            border-radius: 0.2rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 0.5rem;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact i {
+            margin-right: 1.5rem;
+            margin-top: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 4rem;
+            height: 4rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            width: 6rem;
+            height: 6rem;
+            background-color: #25d366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-btn i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        /* Back To Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 3rem;
+            left: 3rem;
+            width: 5rem;
+            height: 5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .back-to-top i {
+            font-size: 2.5rem;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            html {
+                font-size: 55%;
+            }
+            
+            .contact-content,
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            #menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 8rem;
+                left: 0;
+                width: 100%;
+                height: 0;
+                background-color: white;
+                flex-direction: column;
+                overflow: hidden;
+                transition: height 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                visibility: hidden;
+                z-index: 999;
+                padding: 0;
+            }
+            
+            .nav-links.active {
+                height: auto;
+                opacity: 1;
+                visibility: visible;
+                padding: 3rem 0;
+            }
+            
+            #menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+            
+            #menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            #menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .hero p {
+                font-size: 1.8rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .hero-buttons .btn {
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            html {
+                font-size: 50%;
+            }
+            
+            .section {
+                padding: 6rem 0;
+            }
+            
+            h1 {
+                font-size: 4rem;
+            }
+            
+            h2 {
+                font-size: 3rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .whatsapp-btn,
+            .back-to-top {
+                width: 5rem;
+                height: 5rem;
+            }
+            
+            .whatsapp-btn i,
+            .back-to-top i {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back To Top Button -->
+    <a id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- WhatsApp Button -->
+    <a href="javascript:void(0)" class="whatsapp-btn" onclick="openWhatsApp()">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Himanshu <span>Library</span></a>
+                <div id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#register">Register</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Himanshu Library</h1>
+                <p>A safe and quiet environment for students to study and store their belongings while focusing on their academic success.</p>
+                <div class="hero-buttons">
+                    <a href="#register" class="btn">Register Now</a>
+                    <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-img">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/13c9c868-b8ed-4c72-a0cd-3ea76005306e_wm" alt="Quiet Study Space">
+                    </div>
+                    <div class="service-content">
+                        <h3>Quiet Study Space</h3>
+                        <p>Our library provides a peaceful environment with comfortable seating where students can focus on their studies without distractions.</p>
+                        <a href="#register" class="btn btn-outlined">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="service-img">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/1135ac81-beb5-4a63-a3b9-e417b50f7ce4_wm" alt="Secure Storage">
+                    </div>
+                    <div class="service-content">
+                        <h3>Secure Storage</h3>
+                        <p>We offer secure lockers for students to store their valuable belongings while they study, giving them peace of mind.</p>
+                        <a href="#register" class="btn btn-outlined">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="service-img">
+                        <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/0d188c66-b04a-4f43-a020-9c9b3108dcbe_wm" alt="Dedicated Support">
+                    </div>
+                    <div class="service-content">
+                        <h3>Dedicated Support</h3>
+                        <p>Our staff is committed to providing assistance and maintaining a conducive environment for academic excellence.</p>
+                        <a href="#register" class="btn btn-outlined">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h2>About Himanshu Library</h2>
+                    <p>Himanshu Library was established with the vision of providing students with a perfect study environment. We understand that students need a quiet, safe, and comfortable place to focus on their academic pursuits.</p>
+                    <p>Our dedicated team works tirelessly to maintain a conducive atmosphere for learning, ensuring that all students can achieve their educational goals without any distractions. We take pride in offering not just a study space, but a community that fosters academic excellence.</p>
+                    <a href="#contact" class="btn">Contact Us</a>
+                </div>
+                <div class="about-img fade-in">
+                    <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/0d188c66-b04a-4f43-a020-9c9b3108dcbe_wm" alt="About Himanshu Library">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="registration section">
+        <div class="container">
+            <div class="registration-content fade-in">
+                <h2>Register as a Student</h2>
+                <p>Join our community of dedicated learners and get access to our quiet study space and secure storage facilities. Complete our simple registration process to get started.</p>
+                <button id="register-btn" class="btn btn-secondary">Register Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Address</h4>
+                                <p>Himanshu Library, Near City Center, Main Street</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p>9368560632</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>himanshukryadav369@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Opening Hours</h4>
+                                <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                                <p>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form fade-in">
+                    <h3>Send us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.2584419019087!2d77.29462391508692!3d28.62195518242436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce35b9975b1fb%3A0x69a09f265ef3b22a!2sAkshardham!5e0!3m2!1sen!2sin!4v1623492789722!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Himanshu <span>Library</span></div>
+                    <p>Providing a safe and quiet environment for students to study and store their belongings while focusing on their academic success.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#register">Register</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact Information</h4>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Near City Center, Main Street</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>9368560632</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>himanshukryadav369@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Himanshu Library. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Initialize password verification system
+            initPasswordVerification();
+            
+            // Initialize mobile menu toggle
+            initMobileMenu();
+            
+            // Initialize smooth scrolling
+            initSmoothScroll();
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+            
+            // Initialize back to top button
+            initBackToTopButton();
+            
+            // Initialize sticky header
+            initStickyHeader();
+        });
+
+        /**
+         * Password verification for registration
+         */
+        function initPasswordVerification() {
+            // Get registration button
+            const registerBtn = document.getElementById('register-btn');
+            
+            // The button may not exist on all pages
+            if (registerBtn) {
+                registerBtn.addEventListener('click', promptPassword);
+            }
+        }
+
+        /**
+         * Prompt user for password and verify
+         */
+        function promptPassword() {
+            // Create and show modal
+            const modalContainer = document.createElement('div');
+            modalContainer.className = 'password-modal-container';
+            
+            const modalContent = document.createElement('div');
+            modalContent.className = 'password-modal-content';
+            
+            const modalTitle = document.createElement('h3');
+            modalTitle.textContent = 'Enter Password';
+            
+            const modalInput = document.createElement('input');
+            modalInput.type = 'password';
+            modalInput.placeholder = 'Enter password';
+            modalInput.className = 'password-input';
+            
+            const modalButtons = document.createElement('div');
+            modalButtons.className = 'modal-buttons';
+            
+            const submitButton = document.createElement('button');
+            submitButton.textContent = 'Submit';
+            submitButton.className = 'modal-button submit-btn';
+            
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'Cancel';
+            cancelButton.className = 'modal-button cancel-btn';
+            
+            modalButtons.appendChild(submitButton);
+            modalButtons.appendChild(cancelButton);
+            
+            modalContent.appendChild(modalTitle);
+            modalContent.appendChild(modalInput);
+            modalContent.appendChild(modalButtons);
+            
+            modalContainer.appendChild(modalContent);
+            document.body.appendChild(modalContainer);
+            
+            // Focus on input
+            modalInput.focus();
+            
+            // Handle submit button click
+            submitButton.addEventListener('click', function() {
+                verifyPassword(modalInput.value, modalContainer);
+            });
+            
+            // Handle cancel button click
+            cancelButton.addEventListener('click', function() {
+                closeModal(modalContainer);
+            });
+            
+            // Allow Enter key to submit
+            modalInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    verifyPassword(modalInput.value, modalContainer);
+                }
+            });
+            
+            // Close modal when clicking outside
+            modalContainer.addEventListener('click', function(e) {
+                if (e.target === modalContainer) {
+                    closeModal(modalContainer);
+                }
+            });
+            
+            // Add animation class after a short delay
+            setTimeout(() => {
+                modalContainer.classList.add('show');
+            }, 50);
+        }
+
+        /**
+         * Verify the entered password
+         */
+        function verifyPassword(password, modalContainer) {
+            const correctPassword = "Himalok@476"; // The password
+            
+            if (password === correctPassword) {
+                // Show success message
+                showNotification('Success! Redirecting to registration form...', 'success');
+                
+                // Close modal
+                closeModal(modalContainer);
+                
+                // Open Google Form after a short delay
+                setTimeout(() => {
+                    openGoogleForm();
+                }, 1500);
+            } else {
+                // Show error message
+                showNotification('Incorrect password! Please try again.', 'error');
+                
+                // Shake the modal to indicate error
+                const modalContent = modalContainer.querySelector('.password-modal-content');
+                modalContent.classList.add('shake');
+                
+                // Remove shake class after animation completes
+                setTimeout(() => {
+                    modalContent.classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        /**
+         * Open the Google Form for registration
+         */
+        function openGoogleForm() {
+            // Replace with your actual Google Form URL
+            window.open('https://forms.gle/yourgoogleformurl', '_blank');
+        }
+
+        /**
+         * Close the password modal
+         */
+        function closeModal(modalContainer) {
+            modalContainer.classList.remove('show');
+            
+            // Remove from DOM after animation completes
+            setTimeout(() => {
+                if (document.body.contains(modalContainer)) {
+                    document.body.removeChild(modalContainer);
+                }
+            }, 300);
+        }
+
+        /**
+         * Show notification message
+         */
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 50);
+            
+            // Hide and remove notification after delay
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        /**
+         * Initialize mobile menu toggle
+         */
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a link
+                const links = document.querySelectorAll('.nav-links a');
+                links.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                    });
+                });
+            }
+        }
+
+        /**
+         * Initialize smooth scrolling for anchor links
+         */
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Get header height for offset
+                        const header = document.querySelector('header');
+                        const headerHeight = header ? header.offsetHeight : 0;
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - headerHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        /**
+         * Initialize animations on scroll
+         */
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        /**
+         * Initialize back to top button
+         */
+        function initBackToTopButton() {
+            const backToTop = document.getElementById('back-to-top');
+            
+            if (backToTop) {
+                // Show/hide button based on scroll position
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        backToTop.classList.add('show');
+                    } else {
+                        backToTop.classList.remove('show');
+                    }
+                });
+                
+                // Scroll to top when clicked
+                backToTop.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        }
+
+        /**
+         * Initialize sticky header on scroll
+         */
+        function initStickyHeader() {
+            const header = document.querySelector('header');
+            const hero = document.querySelector('.hero');
+            
+            if (header && hero) {
+                const heroBottom = hero.offsetTop + hero.offsetHeight;
+                
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > heroBottom) {
+                        header.classList.add('sticky');
+                    } else {
+                        header.classList.remove('sticky');
+                    }
+                });
+            }
+        }
+
+        /**
+         * WhatsApp integration for direct chat
+         */
+        function openWhatsApp() {
+            const phoneNumber = '9368560632';
+            const message = encodeURIComponent('Hello! I would like to inquire about Himanshu Library.');
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        // Form submission handler
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showNotification('Message sent successfully!', 'success');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

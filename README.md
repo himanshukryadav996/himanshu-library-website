@@ -106,5 +106,5 @@ A comprehensive, responsive website for Himanshu Library featuring registration 
 - Online payment integration for fees
 - Event calendar for library activities
 
-## ðŸ“– License
+## License
 This project is provided for exclusive use by Himanshu Library. All rights reserved.
